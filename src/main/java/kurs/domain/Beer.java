@@ -9,7 +9,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter

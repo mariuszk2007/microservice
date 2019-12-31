@@ -21,11 +21,14 @@ public class BeerBootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        if(beerrepository.count()==0){
         loadBeerObjects();
+            System.out.println("you have :" +beerrepository.count() + "in beer repository");
+        }
     }
 
     private void loadBeerObjects() {
-        if(beerrepository.count()==0){
+
             beerrepository.save(Beer.builder()
                     .beerName("Tyskie")
                     .style(BeerStyles.PILSNER)
@@ -43,6 +46,5 @@ public class BeerBootstrap implements CommandLineRunner {
                     .minOnHands(12)
                     .build());
         }
-        System.out.println("you have :" +beerrepository.count() + "in beer repository");
-    }
+
 }

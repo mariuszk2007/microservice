@@ -6,8 +6,7 @@ import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
 
-@Component
-@Mapper(uses={DataMapper.class})
+@Mapper(uses={DataMapper.class}, componentModel = "spring")
 public interface BeerMapper {
 
     BeerDto beerToBeerDto(Beer beer);

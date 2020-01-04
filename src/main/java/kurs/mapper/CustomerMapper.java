@@ -6,8 +6,8 @@ import kurs.web.model.CustomerDto;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-@Component
-@Mapper
+
+@Mapper( componentModel = "spring")
 public interface CustomerMapper {
 
 Customer customerDtoToCustomer(CustomerDto customerDto);

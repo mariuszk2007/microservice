@@ -17,15 +17,13 @@ import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.startsWith;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
-//@ComponentScan(basePackages = "kurs.mapper")
+@WebMvcTest(BeerController.class)
+@ComponentScan(basePackages = "kurs.mapper")
 class BeerControllerTest {
 
     @Autowired
@@ -40,7 +38,7 @@ class BeerControllerTest {
     @Test
     void getBeer() throws Exception {
         given(beerRepository.findById(any())).willReturn(Optional.of(Beer.builder().build()));
-        mockMvc.perform(get("api/v1/beer/"+UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/v1/beer/"+UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
     }
@@ -50,7 +48,7 @@ class BeerControllerTest {
         BeerDto beerDto = getValidBeerDto();
         String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 
-        mockMvc.perform(post("api/v1/beer/")
+        mockMvc.perform(post("/api/v1/beer/")
         .contentType(MediaType.APPLICATION_JSON)
         .content(beerDtoJson))
                 .andExpect(status().isCreated());
@@ -61,7 +59,7 @@ class BeerControllerTest {
     void handleUpdate() throws Exception {
         BeerDto beerDto = getValidBeerDto();
         String beerDtoJson = objectMapper.writeValueAsString(beerDto);
-        mockMvc.perform(put("api/v1/beer/"  + UUID.randomUUID().toString())
+        mockMvc.perform(put("/api/v1/beer/"  + UUID.randomUUID().toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(beerDtoJson))
                 .andExpect(status().isNoContent());
@@ -69,7 +67,7 @@ class BeerControllerTest {
 
     @Test
     void handleDeleteBeer() throws Exception{
-        mockMvc.perform(delete("api/v1/beer/"  + UUID.randomUUID().toString()))
+        mockMvc.perform(delete("/api/v1/beer/"  + UUID.randomUUID().toString()))
         .andExpect(status().isNoContent());
 
     }

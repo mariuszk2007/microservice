@@ -4,7 +4,7 @@ import kurs.domain.Beer;
 import kurs.mapper.BeerMapper;
 import kurs.repositories.BeerRepository;
 import kurs.web.model.BeerDto;
-import kurs.web.services.BeerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,15 +21,10 @@ public class BeerController {
    // @Autowired
   //  private BeerService beerService;
 
-
-   private final BeerRepository beerRepository;
-
-   private final BeerMapper beerMapper;
     @Autowired
-    public BeerController(BeerRepository beerRepository, BeerMapper beerMapper) {
-        this.beerRepository = beerRepository;
-        this.beerMapper = beerMapper;
-    }
+   private  BeerRepository beerRepository;
+    @Autowired
+   private BeerMapper beerMapper;
 
     @GetMapping("/{beerId}")
     public ResponseEntity<BeerDto> getBeer(@PathVariable("beerId") UUID beerId){
@@ -44,9 +39,8 @@ public class BeerController {
         Beer savedBeer = beerRepository.save(beerMapper.beerDtoToBeer(beerDto));
 
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "api/v1/beer/"+ savedBeer.getId().toString());
-        return new ResponseEntity(headers, HttpStatus.CREATED);
+
+        return new ResponseEntity( HttpStatus.CREATED);
 
 
     }

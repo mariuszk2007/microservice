@@ -40,9 +40,11 @@ public class BeerDto {
     @Positive
     @NotNull
     private BigDecimal price;
-    @Positive
-    @NotNull
-    private Integer quantitOnHand;
+
+
+    private Integer minOnHands;
+
+    private Integer quantityToBrew;
 
 
 }

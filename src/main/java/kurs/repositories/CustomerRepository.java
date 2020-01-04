@@ -1,12 +1,11 @@
 package kurs.repositories;
 
-import kurs.domain.Beer;
+import kurs.domain.Customer;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface BeerRepository extends PagingAndSortingRepository<Beer, UUID> {
-
+public interface CustomerRepository extends PagingAndSortingRepository<Customer, UUID> {
 }

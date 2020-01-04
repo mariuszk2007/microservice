@@ -1,5 +1,8 @@
 package kurs.web.conttoller;
 
+import kurs.domain.Beer;
+import kurs.mapper.BeerMapper;
+import kurs.repositories.BeerRepository;
 import kurs.web.model.BeerDto;
 import kurs.web.services.BeerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +18,34 @@ import java.util.UUID;
 @RestController
 public class BeerController {
 
+   // @Autowired
+  //  private BeerService beerService;
+
+
+   private final BeerRepository beerRepository;
+
+   private final BeerMapper beerMapper;
     @Autowired
-    private BeerService beerService;
+    public BeerController(BeerRepository beerRepository, BeerMapper beerMapper) {
+        this.beerRepository = beerRepository;
+        this.beerMapper = beerMapper;
+    }
 
     @GetMapping("/{beerId}")
     public ResponseEntity<BeerDto> getBeer(@PathVariable("beerId") UUID beerId){
 
 
-        return new ResponseEntity<>(beerService.getBeerById(beerId), HttpStatus.OK);
+        return new ResponseEntity(beerMapper.beerToBeerDto(beerRepository.findById(beerId).get()), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity handlePost(@Valid @RequestBody BeerDto beerDto){
-        BeerDto savedBeerDto = beerService.saveBeer(beerDto);
+       // BeerDto savedBeerDto = beerService.saveBeer(beerDto);
+        Beer savedBeer = beerRepository.save(beerMapper.beerDtoToBeer(beerDto));
+
+
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "api/v1/beer/"+ savedBeerDto.getId().toString());
+        headers.add("Location", "api/v1/beer/"+ savedBeer.getId().toString());
         return new ResponseEntity(headers, HttpStatus.CREATED);
 
 
@@ -37,13 +53,24 @@ public class BeerController {
     @PutMapping("/{beerId}")
     public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId,@Valid @RequestBody BeerDto beerDto){
 
-         beerService.updateBeer(beerId, beerDto);
+       //  beerService.updateBeer(beerId, beerDto);
+        beerRepository.findById(beerId).ifPresent(beer->{
+        beer.setBeerName(beerDto.getBeerName());
+        beer.setStyle(beerDto.getBeerType());
+        beer.setPrice(beerDto.getPrice());
+        beer.setUpc(beerDto.getUPC());
+
+        beerRepository.save(beer);
+
+        });
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
     @DeleteMapping("/{beerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void handleDeleteBeer(@PathVariable("beerId") UUID beerId){
-        beerService.deleteBeer(beerId);
+       // beerService.deleteBeer(beerId);
+        beerRepository.findById(beerId).ifPresent(beer->
+        beerRepository.delete(beer));
 
     }
 

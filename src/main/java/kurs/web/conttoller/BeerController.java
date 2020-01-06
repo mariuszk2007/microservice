@@ -4,9 +4,7 @@ import kurs.domain.Beer;
 import kurs.mapper.BeerMapper;
 import kurs.repositories.BeerRepository;
 import kurs.web.model.BeerDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +48,7 @@ public class BeerController {
        //  beerService.updateBeer(beerId, beerDto);
         beerRepository.findById(beerId).ifPresent(beer->{
         beer.setBeerName(beerDto.getBeerName());
-        beer.setStyle(beerDto.getBeerType());
+        beer.setBeerType(beerDto.getBeerType());
         beer.setPrice(beerDto.getPrice());
         beer.setUpc(beerDto.getUPC());
 

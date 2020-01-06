@@ -31,7 +31,7 @@ public class BeerBootstrap implements CommandLineRunner {
 
             beerrepository.save(Beer.builder()
                     .beerName("Tyskie")
-                    .style(BeerStyles.PILSNER)
+                    .beerType(BeerStyles.PILSNER)
                     .price(new BigDecimal("12.95"))
                     .quantityToBrew(200)
                     .upc(3751456L)
@@ -39,7 +39,7 @@ public class BeerBootstrap implements CommandLineRunner {
                     .build());
             beerrepository.save(Beer.builder()
                     .beerName("Lech")
-                    .style(BeerStyles.ALE)
+                    .beerType(BeerStyles.ALE)
                     .price(new BigDecimal("11.95"))
                     .quantityToBrew(300)
                     .upc(456987963L)

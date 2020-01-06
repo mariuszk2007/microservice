@@ -35,7 +35,7 @@ public class Beer {
 
     private String beerName;
 
-    private BeerStyles style;
+    private BeerStyles beerType;
     @Column(unique = true)
     private Long upc;
 

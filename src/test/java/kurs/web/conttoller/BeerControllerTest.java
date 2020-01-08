@@ -2,8 +2,8 @@ package kurs.web.conttoller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import kurs.domain.Beer;
-import kurs.repositories.BeerRepository;
+
+import kurs.services.BeerService;
 import kurs.web.model.BeerDto;
 import kurs.web.model.BeerStyles;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.constraints.ConstraintDescriptions;
 import org.springframework.restdocs.payload.FieldDescriptor;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.StringUtils;
 
@@ -53,11 +52,11 @@ class BeerControllerTest {
     ObjectMapper objectMapper;
 
     @MockBean
-    BeerRepository beerRepository;
+    BeerService beerService;
 
     @Test
     void getBeer() throws Exception {
-        given(beerRepository.findById(any())).willReturn(Optional.of(Beer.builder().build()));
+        given(beerService.getBeerById(any())).willReturn(BeerDto.builder().build());
         mockMvc.perform(get("/api/v1/beer/{beerId}",UUID.randomUUID().toString())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

@@ -1,4 +1,4 @@
-package kurs.web.services;
+package kurs.services;
 
 import kurs.web.model.BeerDto;
 

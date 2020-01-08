@@ -4,17 +4,14 @@ import kurs.domain.Customer;
 import kurs.mapper.CustomerMapper;
 import kurs.repositories.CustomerRepository;
 import kurs.web.model.CustomerDto;
-import kurs.web.services.CustomerService;
+import kurs.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/v1/customer")

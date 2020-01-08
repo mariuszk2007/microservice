@@ -1,4 +1,4 @@
-package kurs.web.services;
+package kurs.services;
 
 import kurs.web.model.CustomerDto;
 import lombok.extern.slf4j.Slf4j;
